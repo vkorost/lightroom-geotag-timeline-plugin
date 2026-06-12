@@ -1,8 +1,8 @@
-# Geotag from Google Timeline — Lightroom Classic Plugin
+# Geotag from Google Timeline: Lightroom Classic Plugin
 
 A free, open-source Adobe Lightroom Classic plugin that automatically adds GPS coordinates and location names to your photos using your Google Timeline location history.
 
-Many cameras — including high-end bodies like the **Canon EOS R5** — do not record GPS data. That means your photos arrive in Lightroom with no location information: no map pins, no city or country tags, nothing you can search or filter by later.
+Many cameras, including high-end bodies like the **Canon EOS R5**, do not record GPS data. That means your photos arrive in Lightroom with no location information: no map pins, no city or country tags, nothing you can search or filter by later.
 
 This plugin solves that problem. If you carry your phone with you while you shoot (and most of us do), Google is already recording where you are. This plugin takes that location history and matches it to the timestamps of your photos, writing GPS coordinates and human-readable location names (city, state, country) directly into the Lightroom catalog. When you export JPEGs, the location data is embedded automatically.
 
@@ -13,7 +13,7 @@ This plugin solves that problem. If you carry your phone with you while you shoo
 - Reads your **Google Timeline JSON** export (the location history your phone records in the background)
 - Matches each selected photo's capture time to the closest recorded location
 - Writes **GPS coordinates** into the Lightroom catalog so photos appear on the Map
-- Writes **IPTC location fields** — City, State/Province, Country, and ISO Country Code — so you can search and filter by location name
+- Writes **IPTC location fields** (City, State/Province, Country, and ISO Country Code) so you can search and filter by location name
 - All metadata flows through to exported JPEGs automatically
 
 ![Photos on the Lightroom Map](screenshots/Location-Map-View.jpg)
@@ -24,7 +24,7 @@ This plugin solves that problem. If you carry your phone with you while you shoo
 - **Python 3.8+** installed on your computer (no extra packages needed)
 - **Google Location History** enabled on your phone
 
-## Step 1 — Enable Google Location History
+## Step 1. Enable Google Location History
 
 Google Timeline records your location in the background as you go about your day. For this plugin to work, you need Timeline enabled on your Android phone.
 
@@ -38,7 +38,7 @@ To verify it is turned on:
 
 If Timeline has been on for a while, you should see a count of how many visits and routes have been saved (for example, "52876 visits and routes saved on this device since Mar 28, 2014"). The longer Timeline has been running, the more of your past photo shoots it will cover.
 
-## Step 2 — Export Your Timeline Data
+## Step 2. Export Your Timeline Data
 
 You need to export your location history from your phone as a JSON file and transfer it to your PC.
 
@@ -49,27 +49,27 @@ You need to export your location history from your phone as a JSON file and tran
 3. Confirm with your PIN, password, or biometric authentication
 4. The export produces a JSON file saved to your phone (typically in the Downloads folder)
 5. Transfer the file to your PC:
-   - **USB cable** — connect your phone and copy the file from Downloads
-   - **Cloud storage** — upload to Google Drive, OneDrive, or Dropbox, then download on your PC
-   - **Email** — email the file to yourself (note: the file can be 100 MB+ for years of history)
-   - **Nearby Share / Quick Share** — wirelessly transfer to a nearby Windows PC
+   - **USB cable**: connect your phone and copy the file from Downloads
+   - **Cloud storage**: upload to Google Drive, OneDrive, or Dropbox, then download on your PC
+   - **Email**: email the file to yourself (note: the file can be 100 MB+ for years of history)
+   - **Nearby Share / Quick Share**: wirelessly transfer to a nearby Windows PC
 
 For a detailed walkthrough with screenshots, see the **[Android Export Guide](EXPORT_TIMELINE_ANDROID.md)**.
 
 > **Note:** Google has transitioned Timeline data to on-device storage. The export is done from your phone's Settings, not from the Google Maps website. If you have older location history exported via [Google Takeout](https://takeout.google.com) in JSON format, the plugin supports that format as well.
 
-## Step 3 — Install the Plugin
+## Step 3. Install the Plugin
 
 1. Download or clone this repository to your computer
 2. Open Lightroom Classic
 3. Go to **File > Plug-in Manager**
 4. Click **Add** and navigate to the `GeotagTimeline.lrplugin` folder inside this project
 5. The plugin should appear as **"Geotag from Google Timeline"** with a green status indicator
-6. In the plugin settings panel at the top, verify the **Python executable** path (default is `python` — change it if your Python is installed elsewhere, e.g., `python3` or `C:\Python313\python.exe`)
+6. In the plugin settings panel at the top, verify the **Python executable** path (default is `python`; change it if your Python is installed elsewhere, e.g., `python3` or `C:\Python313\python.exe`)
 
 ![Plugin Manager](screenshots/Geotag-Plugin.jpg)
 
-## Step 4 — Geotag Your Photos
+## Step 4. Geotag Your Photos
 
 1. In the **Library** module, select the photos you want to geotag
 2. Go to **Library > Plug-in Extras > Geotag from Google Timeline**
@@ -78,7 +78,7 @@ For a detailed walkthrough with screenshots, see the **[Android Export Guide](EX
 
 3. In the plugin dialog:
    - **Browse** to select your Google Timeline JSON file
-   - Set the **Max time window** — the maximum number of hours between a photo's capture time and a location record for them to be considered a match (default: 24 hours; use a smaller value like 1-2 for higher precision)
+   - Set the **Max time window**, the maximum number of hours between a photo's capture time and a location record for them to be considered a match (default: 24 hours; use a smaller value like 1-2 for higher precision)
    - Set **Time adjustment** if your camera's clock was set to a different timezone than what Google Timeline recorded (default: 0)
    - Check **Reverse geocode** to look up city, state, and country names (enabled by default; adds ~1 second per unique location due to API rate limiting)
    - Check **Overwrite existing GPS data** if you want to re-tag photos that already have location information
@@ -90,8 +90,8 @@ For a detailed walkthrough with screenshots, see the **[Android Export Guide](EX
 
 After geotagging, you can verify the results:
 
-- **Metadata panel** (right side in Library) — shows City, State, Country, and GPS coordinates
-- **Map module** — geotagged photos appear as pins on the map
+- **Metadata panel** (right side in Library) shows City, State, Country, and GPS coordinates
+- **Map module** shows geotagged photos as pins on the map
 
 ## Supported Timeline Formats
 
@@ -108,9 +108,9 @@ If you have timeline data spanning many years, all formats will be parsed togeth
 ## Tips
 
 - **Smaller time window = more accurate matches.** If you were actively moving, a 1-2 hour window gives better results than 24 hours. If you were stationary all day, a larger window is fine.
-- **The plugin remembers your settings** between sessions — you only need to browse for the JSON file once.
-- **Reverse geocoding is cached** — if multiple photos map to the same coordinates, the location name is looked up only once.
-- **You can run the plugin multiple times** — photos that already have GPS data are skipped by default, so you can safely re-run after importing new photos.
+- **The plugin remembers your settings** between sessions, so you only need to browse for the JSON file once.
+- **Reverse geocoding is cached.** If multiple photos map to the same coordinates, the location name is looked up only once.
+- **You can run the plugin multiple times.** Photos that already have GPS data are skipped by default, so you can safely re-run after importing new photos.
 - **Timeline JSON files can be large** (100+ MB for years of history). The Python script handles this efficiently using binary search, so matching is fast even with hundreds of thousands of location records.
 
 ## How It Works (Technical)
