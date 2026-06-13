@@ -1,6 +1,6 @@
-# Geotag from Google Timeline: Lightroom Classic Plugin
+# Geotag from Google Timeline: Lightroom Plugin
 
-A free, open-source Adobe Lightroom Classic plugin that automatically adds GPS coordinates and location names to your photos using your Google Timeline location history.
+A free, open-source Adobe Lightroom plugin that automatically adds GPS coordinates and location names to your photos using your Google Timeline location history.
 
 Many cameras, including high-end bodies like the **Canon EOS R5**, do not record GPS data. That means your photos arrive in Lightroom with no location information: no map pins, no city or country tags, nothing you can search or filter by later.
 
@@ -20,7 +20,7 @@ This plugin solves that problem. If you carry your phone with you while you shoo
 
 ## Requirements
 
-- **Adobe Lightroom Classic** (version 4 or later)
+- **Adobe Lightroom** (version 4 or later)
 - **Python 3.8+** installed on your computer (no extra packages needed)
 - **Google Location History** enabled on your phone
 
@@ -61,7 +61,7 @@ For a detailed walkthrough with screenshots, see the **[Android Export Guide](EX
 ## Step 3. Install the Plugin
 
 1. Download or clone this repository to your computer
-2. Open Lightroom Classic
+2. Open Lightroom
 3. Go to **File > Plug-in Manager**
 4. Click **Add** and navigate to the `GeotagTimeline.lrplugin` folder inside this project
 5. The plugin should appear as **"Geotag from Google Timeline"** with a green status indicator
@@ -115,7 +115,7 @@ If you have timeline data spanning many years, all formats will be parsed togeth
 
 ## Why This Plugin Exists
 
-Lightroom Classic has no built-in way to batch-geotag photos from Google Timeline data. The Map module can load GPX track logs, but Google Timeline exports as JSON, not GPX. Converting between formats requires third-party tools and manual steps. If your camera lacks built-in GPS (which includes most professional bodies like the Canon EOS R5, Sony A7 series, Nikon Z series, and others), your photos arrive in Lightroom with no location data at all.
+Lightroom has no built-in way to batch-geotag photos from Google Timeline data. The Map module can load GPX track logs, but Google Timeline exports as JSON, not GPX. Converting between formats requires third-party tools and manual steps. If your camera lacks built-in GPS (which includes most professional bodies like the Canon EOS R5, Sony A7 series, Nikon Z series, and others), your photos arrive in Lightroom with no location data at all.
 
 This plugin fills that gap. It reads the Google Timeline JSON directly, matches photo timestamps to locations using binary search, and writes GPS coordinates plus human-readable location names into the Lightroom catalog. No format conversion, no third-party tools, no manual map-dragging. Select your photos, point the plugin at your Timeline export, and every photo gets its location.
 
@@ -135,7 +135,7 @@ Other tools in this space include [Jeffrey Friedl's Geoencoding Plugin](https://
 
 ## Building Your Own Version
 
-The most valuable part of this repository is **[CLAUDE_BUILD_INSTRUCTIONS.md](CLAUDE_BUILD_INSTRUCTIONS.md)**. It contains a complete prompt you can paste into [Claude Code](https://docs.anthropic.com/en/docs/claude-code) to generate a working version of this plugin for any operating system and any Lightroom Classic version. You can also use it as a starting point to build a more involved plugin with additional operations. The prompt encodes all the technical decisions, platform-specific workarounds, and SDK pitfalls discovered during development, so Claude can reproduce (or extend) the plugin without you needing to understand the code.
+The most valuable part of this repository is **[CLAUDE_BUILD_INSTRUCTIONS.md](CLAUDE_BUILD_INSTRUCTIONS.md)**. It contains a complete prompt you can paste into [Claude Code](https://docs.anthropic.com/en/docs/claude-code) to generate a working version of this plugin for any operating system and any Lightroom version. You can also use it as a starting point to build a more involved plugin with additional operations. The prompt encodes all the technical decisions, platform-specific workarounds, and SDK pitfalls discovered during development, so Claude can reproduce (or extend) the plugin without you needing to understand the code.
 
 ## How It Works (Technical)
 
