@@ -119,6 +119,20 @@ Lightroom Classic has no built-in way to batch-geotag photos from Google Timelin
 
 This plugin fills that gap. It reads the Google Timeline JSON directly, matches photo timestamps to locations using binary search, and writes GPS coordinates plus human-readable location names into the Lightroom catalog. No format conversion, no third-party tools, no manual map-dragging. Select your photos, point the plugin at your Timeline export, and every photo gets its location.
 
+## How This Compares to Other Approaches
+
+As of June 2026, based on an online search of available tools and community discussions, every existing method for using Google Timeline data with Lightroom requires manual format conversion and multiple steps. No other Lightroom plugin reads Google Timeline JSON directly.
+
+| | Existing approaches | This plugin |
+|---|---|---|
+| Reads Google Timeline JSON directly | No (requires converting JSON to GPX first using tools like GPSBabel or location-history-json-converter) | Yes |
+| Works inside Lightroom | Partially (must load GPX track logs in the Map module, then manually auto-tag) | Fully (one-click from the Library menu) |
+| Adds city, state, country names | No (only GPS coordinates from track log matching) | Yes (reverse geocodes automatically) |
+| Handles all Timeline JSON formats | Varies by converter tool | All three formats (semanticSegments, locations, timelineObjects) |
+| External tools required | GPSBabel, Python conversion scripts, or other converters | Only Python (standard library, no pip packages) |
+
+Other tools in this space include [Jeffrey Friedl's Geoencoding Plugin](https://regex.info/blog/lightroom-goodies/gps) (reads GPX/KML, not Google JSON), [geotag](https://github.com/bjoveski/geotag) (command-line tool, not a Lightroom plugin), and [Yore](https://github.com/WrinklyNinja/yore) (desktop utility, archived). All require format conversion or operate outside of Lightroom.
+
 ## Building Your Own Version
 
 The most valuable part of this repository is **[CLAUDE_BUILD_INSTRUCTIONS.md](CLAUDE_BUILD_INSTRUCTIONS.md)**. It contains a complete prompt you can paste into [Claude Code](https://docs.anthropic.com/en/docs/claude-code) to generate a working version of this plugin for any operating system and any Lightroom Classic version. You can also use it as a starting point to build a more involved plugin with additional operations. The prompt encodes all the technical decisions, platform-specific workarounds, and SDK pitfalls discovered during development, so Claude can reproduce (or extend) the plugin without you needing to understand the code.
