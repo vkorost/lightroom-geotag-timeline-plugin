@@ -79,7 +79,7 @@ For a detailed walkthrough with screenshots, see the **[Android Export Guide](EX
 3. In the plugin dialog:
    - **Browse** to select your Google Timeline JSON file
    - Set the **Max time window**, the maximum number of hours between a photo's capture time and a location record for them to be considered a match (default: 24 hours; use a smaller value like 1-2 for higher precision)
-   - Set **Time adjustment** if your camera's clock was set to a different timezone than what Google Timeline recorded (default: 0)
+   - Set **Time adjustment** if your photos were taken in a different timezone than your computer's (see [Time Adjustment](#time-adjustment) below; default: 0)
    - Check **Reverse geocode** to look up city, state, and country names (enabled by default; adds ~1 second per unique location due to API rate limiting)
    - Check **Overwrite existing GPS data** if you want to re-tag photos that already have location information
 
@@ -104,6 +104,21 @@ The plugin handles all known Google Timeline JSON formats:
 | `timelineObjects` | Intermediate format | `position`, `activitySegment`, `placeVisit` |
 
 If you have timeline data spanning many years, all formats will be parsed together.
+
+## Time Adjustment
+
+Photo EXIF timestamps do not include timezone information. When Lightroom imports a photo, it interprets the capture time using **your computer's timezone**. If you took photos in a different timezone than your computer is set to, the timestamps Lightroom records will be offset from the actual moment the photo was taken, and the plugin will match to the wrong location in your timeline.
+
+**Formula:** set the time adjustment to `(camera timezone UTC offset) minus (computer timezone UTC offset)`.
+
+**Example:** You photographed a museum in Sardinia, Italy (CEST = UTC+2), but your computer at home is set to US Eastern time (EDT = UTC-4). The difference is (+2) − (−4) = **6 hours**. Lightroom thinks the photos were taken 6 hours later than they actually were, so set the time adjustment to **−6**. This shifts the photo timestamps back to the correct moment, and the plugin matches them to the location where you actually were.
+
+| Camera timezone | Computer timezone | Adjustment |
+|---|---|---|
+| Rome / CEST (UTC+2) | New York / EDT (UTC-4) | −6 |
+| Tokyo / JST (UTC+9) | London / BST (UTC+1) | +8 |
+| Dubai / GST (UTC+4) | Los Angeles / PDT (UTC-7) | −11 |
+| Same as computer | Same | 0 (default) |
 
 ## Tips
 
@@ -169,7 +184,7 @@ GeotagTimeline.lrplugin/
 |---------|----------|
 | "Python script failed (exit code 1)" | Check that Python 3 is installed and the path is correct in Plugin Manager. Run `python --version` in a terminal to verify. |
 | No photos matched | Increase the **Max time window**. Check that your Timeline JSON covers the dates of the photos. |
-| Wrong locations | Your camera's clock may be off. Use **Time adjustment** to shift photo timestamps. Try small increments (1-2 hours). |
+| Wrong locations | Most likely a timezone mismatch. If you took photos abroad, set **Time adjustment** to `(camera UTC offset) − (computer UTC offset)`. See [Time Adjustment](#time-adjustment). |
 | Plugin not appearing in menu | Make sure the plugin is enabled in **File > Plug-in Manager**. The green dot should be visible. |
 | Slow processing | Reverse geocoding adds ~1 second per unique location (API rate limit). Disable it for faster processing if you only need GPS coordinates. |
 

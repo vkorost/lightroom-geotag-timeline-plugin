@@ -3,6 +3,7 @@ local LrView = import 'LrView'
 local LrPrefs = import 'LrPrefs'
 local LrBinding = import 'LrBinding'
 local LrFunctionContext = import 'LrFunctionContext'
+local LrColor = import 'LrColor'
 
 local TimelineDialog = {}
 
@@ -93,6 +94,21 @@ function TimelineDialog.showDialog(photoCount)
                 },
                 f:static_text {
                     title = "Shift photo times if camera timezone differs",
+                },
+            },
+
+            f:row {
+                f:static_text {
+                    title = "",
+                    width = LrView.share 'label_width',
+                },
+                f:static_text {
+                    title = "Photo EXIF timestamps have no timezone. Lightroom interprets them\n" ..
+                            "using your computer's timezone. If you took photos in a different\n" ..
+                            "timezone, set this to: (camera UTC offset) minus (computer UTC offset).\n" ..
+                            "Example: photos in Rome (UTC+2), computer in New York (UTC\226\136\1524) \226\134\146 set to \226\136\1526.",
+                    text_color = LrColor(0.4, 0.4, 0.4),
+                    font = "<system/small>",
                 },
             },
 

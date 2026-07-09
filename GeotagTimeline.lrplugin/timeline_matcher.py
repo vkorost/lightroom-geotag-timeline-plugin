@@ -70,20 +70,24 @@ def parse_timeline(timeline_path):
                         except (ValueError, IndexError):
                             continue
 
-            # Visit locations
+            # Visit locations — add both start and end so photos taken
+            # anywhere during a visit match to the visit's coordinates.
             if 'visit' in segment:
                 candidate = segment['visit'].get('topCandidate', {})
                 place_loc = candidate.get('placeLocation', {})
                 latlng = place_loc.get('latLng')
                 start_time = segment.get('startTime')
+                end_time = segment.get('endTime')
                 if latlng and start_time:
                     try:
-                        dt = datetime.datetime.fromisoformat(start_time)
                         coords = latlng.replace('\u00b0', '').split(', ')
                         if len(coords) == 2:
-                            locations.append(
-                                (dt.timestamp(), float(coords[0]), float(coords[1]))
-                            )
+                            lat, lon = float(coords[0]), float(coords[1])
+                            dt_start = datetime.datetime.fromisoformat(start_time)
+                            locations.append((dt_start.timestamp(), lat, lon))
+                            if end_time:
+                                dt_end = datetime.datetime.fromisoformat(end_time)
+                                locations.append((dt_end.timestamp(), lat, lon))
                     except (ValueError, IndexError):
                         continue
 
